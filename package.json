@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/node": "^20.14.10",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5"
+  }
+}
