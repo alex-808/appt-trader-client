@@ -13,7 +13,13 @@ interface ApiData {
     RequestStatus: string;
     ResponseCode: number;
     ResponseMessage: string;
-    Payload?: any;
+    Payload?:
+        | {
+              Name: string;
+              MetaInformation: any;
+              KeyValueList: [];
+          }
+        | boolean;
 }
 
 type ApiResponse = AxiosResponse<ApiData>;
@@ -43,7 +49,7 @@ class MarketDataApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getMostBidsLeastAsks(params?: {
@@ -66,7 +72,7 @@ class MarketDataApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
     async getMostViewedLocationsWithLeastListings(params?: {
         pageSize?: number;
@@ -77,7 +83,7 @@ class MarketDataApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
     async getToplist(params?: {
         cityCode?: string;
@@ -90,7 +96,7 @@ class MarketDataApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -133,7 +139,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
     async getComparableTrades(params: {
         locationAlias: string;
@@ -145,7 +151,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getInventoryTypes(params: {
@@ -156,7 +162,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getMetricHistory(params: {
@@ -171,7 +177,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getMetrics(params: {
@@ -184,7 +190,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setListing(params: {
@@ -192,6 +198,7 @@ class LocationApi {
         inventoryTypeID: number;
         priceAmountInSmallestUnit: number;
         currencyCode: string;
+        dateTime: string;
         firstName: string;
         lastName: string;
         emailAddress: string;
@@ -204,7 +211,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setSubscribeToCityAreaPriorityBids(params: {
@@ -216,7 +223,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setSubscribeToLocationPriorityBids(params: {
@@ -228,7 +235,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setUnlockExactListingTimes(params: {
@@ -241,7 +248,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setUnsubscribeToCityAreaPriorityBids(params: {
@@ -253,7 +260,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setUnsubscribeToLocationPriorityBids(params: {
@@ -265,7 +272,7 @@ class LocationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -286,7 +293,7 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getPorfolioListings(params?: {
@@ -297,7 +304,7 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setArchive(params: {
@@ -309,11 +316,11 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setCancelBid(params: {
-        bidID: string;
+        bidID: number;
         isWritingRequest?: boolean;
         explain?: boolean;
     }) {
@@ -321,7 +328,7 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setCreateFromTemplate(params: {
@@ -335,7 +342,7 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setFillBid(params: {
@@ -348,7 +355,7 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setMarketVisibility(params: {
@@ -361,7 +368,7 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setPrice(params: {
@@ -374,7 +381,7 @@ class ListingApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -396,7 +403,7 @@ class PortfolioApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_bid
@@ -416,7 +423,7 @@ class PortfolioApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -434,7 +441,7 @@ class BidApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -457,7 +464,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getAvailableMedalCategories(params?: {
@@ -472,7 +479,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getAvailableMedals(params: {
@@ -487,7 +494,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getAvailablePermissions(params?: {
@@ -501,7 +508,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getAvailableRequirements(params?: {
@@ -515,7 +522,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
     // TODO
 
@@ -533,7 +540,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
     // set_create_medal
     async setCreateMedal(params: {
@@ -548,7 +555,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_delete_achievement_bonus
@@ -561,7 +568,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_edit_medal
@@ -583,7 +590,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_link_permission
@@ -598,7 +605,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_link_requirement
@@ -614,7 +621,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_request_medal_sponsorship
@@ -628,7 +635,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_sponsor_user
@@ -642,7 +649,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_unlink_permission
@@ -656,7 +663,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_unlink_requirement
@@ -670,7 +677,7 @@ class MedalApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -693,7 +700,7 @@ class UserApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getTransactionHistory(params?: {
@@ -711,7 +718,7 @@ class UserApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async setReferredUser(params: {
@@ -724,7 +731,7 @@ class UserApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -747,7 +754,7 @@ class NotificationApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -770,7 +777,7 @@ class ToolsApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     async getGeoipData(params: { ipAddress: string; explain?: boolean }) {
@@ -778,7 +785,7 @@ class ToolsApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -803,7 +810,7 @@ class CommunityApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_create_poll_question_for_post
@@ -820,7 +827,7 @@ class CommunityApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 
     // set_submit_vote_for_question
@@ -834,7 +841,7 @@ class CommunityApi {
         if (params) {
             url = appendQueryParams(url, params);
         }
-        return await this.client.get(url);
+        return await this.client.get<ApiData>(url);
     }
 }
 
@@ -881,13 +888,5 @@ export class ApiClient {
         this.client.interceptors.response.use((response: ApiResponse) => {
             return response;
         });
-    }
-
-    parseResponseBody(response: AxiosResponse) {
-        if (response.status === 200) {
-            return response.data.Payload.ResponseBody;
-        } else {
-            throw new Error('Error fetching data');
-        }
     }
 }
