@@ -27,7 +27,17 @@ type ApiResponse = AxiosResponse<ApiData>;
 function appendQueryParams(url: string, params: Record<string, any>) {
     if (!params) return url;
     const { explain, ...restParams } = params;
-    const queryParams = explain ? 'explain' : restParams;
+
+    const queryParams: Record<string, any> = {};
+    for (const [key, value] of Object.entries(restParams)) {
+        queryParams[key] =
+            typeof value === 'object' ? JSON.stringify(value) : value;
+    }
+
+    if (explain) {
+        queryParams['explain'] = explain;
+    }
+
     const separator = url.includes('?') ? '&' : '?';
     return `${url}${separator}${new URLSearchParams(queryParams).toString()}`;
 }
@@ -406,7 +416,6 @@ class PortfolioApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_bid
     async setBid(params: {
         locationIdentifier: string;
         inventoryTypeDesignator: string;
@@ -524,9 +533,7 @@ class MedalApi {
         }
         return await this.client.get<ApiData>(url);
     }
-    // TODO
 
-    // set_achievement_bonus
     async setAchievementBonus(params: {
         slug: string;
         achievementName: string;
@@ -542,7 +549,7 @@ class MedalApi {
         }
         return await this.client.get<ApiData>(url);
     }
-    // set_create_medal
+
     async setCreateMedal(params: {
         medalCategorySlug: string;
         slug: string;
@@ -558,7 +565,6 @@ class MedalApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_delete_achievement_bonus
     async setDeleteAchievementBonus(params: {
         achievementBonusID: string;
         isWritingRequest?: boolean;
@@ -571,7 +577,6 @@ class MedalApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_edit_medal
     async setEditMedal(params: {
         slug: string;
         name: string;
@@ -593,7 +598,6 @@ class MedalApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_link_permission
     async setLinkPermission(params: {
         slug: string;
         permissionName: string;
@@ -608,7 +612,6 @@ class MedalApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_link_requirement
     async setLinkRequirement(params: {
         slug: string;
         requirementSlug: string;
@@ -624,7 +627,6 @@ class MedalApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_request_medal_sponsorship
     async setRequestMedalSponsorship(params: {
         sponsorUserAlias: string;
         medalCategorySlug: string;
@@ -638,7 +640,6 @@ class MedalApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_sponsor_user
     async setSponsorUser(params: {
         userAlias: string;
         medalCategorySlug: string;
@@ -652,7 +653,6 @@ class MedalApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_unlink_permission
     async setUnlinkPermission(params: {
         slug: string;
         permissionName: string;
@@ -798,7 +798,6 @@ class CommunityApi {
         this.baseUrl = 'community/';
     }
 
-    // set_create_poll_answer_for_question
     async setCreatePollAnswerForQuestion(params: {
         questionID: string;
         answerTitle: string;
@@ -813,7 +812,6 @@ class CommunityApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_create_poll_question_for_post
     async setCreatePollQuestionForPost(params: {
         postID: string;
         questionName: string;
@@ -830,7 +828,6 @@ class CommunityApi {
         return await this.client.get<ApiData>(url);
     }
 
-    // set_submit_vote_for_question
     async setSubmitVoteForQuestion(params: {
         questionID: number;
         selectedAnswerID: number;
