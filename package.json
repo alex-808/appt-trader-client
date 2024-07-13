@@ -3,13 +3,17 @@
         "axios": "^1.7.2",
         "dotenv": "^16.4.5"
     },
-    "name": "appt-trader",
-    "version": "1.0.0",
+    "name": "appt-trader-client",
+    "version": "0.1.0",
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "build": "tsup src/client.ts --format cjs,esm --dts",
+        "lint": "tsc"
     },
-    "main": "client.ts",
-    "repository": "https://github.com/alex-808/appt-trader.git",
+    "main": "dist/client.js",
+    "module": "dist/client.mjs",
+    "types": "dist/client.d.ts",
+    "repository": "https://github.com/alex-808/appt-trader-client.git",
     "author": "Alex Davis <63484411+rawbeef-808@users.noreply.github.com>",
     "license": "MIT",
     "devDependencies": {
@@ -21,6 +25,8 @@
         "axios-mock-adapter": "^1.22.0",
         "babel-jest": "^29.7.0",
         "jest": "^29.7.0",
-        "ts-jest": "^29.2.2"
+        "ts-jest": "^29.2.2",
+        "tsup": "^8.1.0",
+        "typescript": "^5.5.3"
     }
 }
