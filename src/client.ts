@@ -22,13 +22,11 @@ interface ApiData {
         | boolean;
 }
 
-type ApiResponse = AxiosResponse<ApiData>;
-
 class ApiError extends Error {
     constructor(
-        public message: string,
-        public statusCode?: number,
-        public data?: any
+        readonly message: string,
+        readonly statusCode?: number,
+        readonly data?: any
     ) {
         super(message);
         this.name = 'ApiError';
@@ -53,10 +51,9 @@ function appendQueryParams(url: string, params: Record<string, any>) {
     return `${url}${separator}${new URLSearchParams(queryParams).toString()}`;
 }
 class MarketDataApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'marketdata/';
     }
@@ -122,10 +119,9 @@ class MarketDataApi {
 }
 
 class AccountApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'account/';
     }
@@ -147,10 +143,9 @@ class AccountApi {
 }
 
 class LocationApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'location/';
     }
@@ -298,10 +293,9 @@ class LocationApi {
 }
 
 class ListingApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'listing/';
     }
@@ -407,10 +401,9 @@ class ListingApi {
 }
 
 class PortfolioApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'portfolio/';
     }
@@ -448,10 +441,9 @@ class PortfolioApi {
 }
 
 class BidApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'bid/';
     }
@@ -466,10 +458,9 @@ class BidApi {
 }
 
 class MedalApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'medal/';
     }
@@ -693,10 +684,9 @@ class MedalApi {
 }
 
 class UserApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'user/';
     }
@@ -747,10 +737,9 @@ class UserApi {
 }
 
 class NotificationApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'notification/';
     }
@@ -770,10 +759,9 @@ class NotificationApi {
 }
 
 class ToolsApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'tools/';
     }
@@ -801,10 +789,9 @@ class ToolsApi {
 }
 
 class CommunityApi {
-    client: AxiosInstance;
-    baseUrl: string;
+    private baseUrl: string;
 
-    constructor(client: AxiosInstance) {
+    constructor(private client: AxiosInstance) {
         this.client = client;
         this.baseUrl = 'community/';
     }
@@ -854,19 +841,19 @@ class CommunityApi {
 }
 
 export class ApiClient {
-    client: AxiosInstance;
-    apiKey: string;
-    marketData: MarketDataApi;
-    account: AccountApi;
-    location: LocationApi;
-    listing: ListingApi;
-    porfolio: PortfolioApi;
-    bid: BidApi;
-    medal: MedalApi;
-    user: UserApi;
-    notification: NotificationApi;
-    tools: ToolsApi;
-    community: CommunityApi;
+    private client: AxiosInstance;
+    private apiKey: string;
+    readonly marketData: MarketDataApi;
+    readonly account: AccountApi;
+    readonly location: LocationApi;
+    readonly listing: ListingApi;
+    readonly porfolio: PortfolioApi;
+    readonly bid: BidApi;
+    readonly medal: MedalApi;
+    readonly user: UserApi;
+    readonly notification: NotificationApi;
+    readonly tools: ToolsApi;
+    readonly community: CommunityApi;
 
     constructor(options: ApiClientOptions) {
         this.client = axios.create({
@@ -930,5 +917,9 @@ export class ApiClient {
                 }
             }
         );
+    }
+
+    get clientInstance() {
+        return this.client;
     }
 }

@@ -10,7 +10,7 @@ describe('API Client', () => {
             baseUrl: 'https://api.example.com',
             apiKey: 'YOUR_API_KEY',
         });
-        mock = new MockAdapter(apiClient.client, {
+        mock = new MockAdapter(apiClient.clientInstance, {
             onNoMatch: 'throwException',
         });
     });
@@ -20,13 +20,9 @@ describe('API Client', () => {
     });
 
     it('should have the correct base URL', () => {
-        expect(apiClient.client.defaults.baseURL).toBe(
+        expect(apiClient.clientInstance.defaults.baseURL).toBe(
             'https://api.example.com'
         );
-    });
-
-    it('should have the correct API key', () => {
-        expect(apiClient.apiKey).toBe('YOUR_API_KEY');
     });
 
     it('should have correct status on successful requests', async () => {
