@@ -1,7 +1,26 @@
 {
-  "dependencies": {
-    "@types/node": "^20.14.10",
-    "axios": "^1.7.2",
-    "dotenv": "^16.4.5"
-  }
+    "dependencies": {
+        "@types/jest": "^29.5.12",
+        "@types/node": "^20.14.10",
+        "axios": "^1.7.2",
+        "axios-mock-adapter": "^1.22.0",
+        "dotenv": "^16.4.5",
+        "jest": "^29.7.0"
+    },
+    "name": "appt-trader",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "jest"
+    },
+    "main": "client.ts",
+    "repository": "https://github.com/alex-808/appt-trader.git",
+    "author": "Alex Davis <63484411+rawbeef-808@users.noreply.github.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.24.8",
+        "@babel/preset-env": "^7.24.8",
+        "@babel/preset-typescript": "^7.24.7",
+        "babel-jest": "^29.7.0",
+        "ts-jest": "^29.2.2"
+    }
 }
