@@ -1,7 +1,7 @@
 import { ApiClient } from './client';
 import MockAdapter from 'axios-mock-adapter';
 
-describe('ApiClient', () => {
+describe('API Client', () => {
     let apiClient: ApiClient;
     let mock: MockAdapter;
 
@@ -32,19 +32,24 @@ describe('ApiClient', () => {
     it('should have correct status on successful requests', async () => {
         mock.onGet(
             '/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
-        ).reply(200);
+        ).reply(200, {
+            data: {
+                ResponseCode: 100,
+            },
+        });
 
         expect(
-            (await apiClient.marketData.getHighestConvertingLocations()).status
-        ).toBe(200);
+            (await apiClient.marketData.getHighestConvertingLocations()).data
+                .ResponseCode
+        ).toBe(100);
     });
-    // it('should throw error on failed requests', async () => {
-    //     mock.onGet(
-    //         '/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
-    //     ).reply(500);
+    it('should throw error on failed requests', async () => {
+        mock.onGet(
+            '/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
+        ).reply(500);
 
-    //     await expect(
-    //         await apiClient.marketData.getHighestConvertingLocations()
-    //     ).rejects.toThrow();
-    // });
+        await expect(
+            apiClient.marketData.getHighestConvertingLocations()
+        ).rejects.toThrow();
+    });
 });

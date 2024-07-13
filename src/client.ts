@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -23,6 +23,17 @@ interface ApiData {
 }
 
 type ApiResponse = AxiosResponse<ApiData>;
+
+class ApiError extends Error {
+    constructor(
+        public message: string,
+        public statusCode?: number,
+        public data?: any
+    ) {
+        super(message);
+        this.name = 'ApiError';
+    }
+}
 
 function appendQueryParams(url: string, params: Record<string, any>) {
     if (!params) return url;
@@ -882,8 +893,42 @@ export class ApiClient {
             return config;
         });
 
-        this.client.interceptors.response.use((response: ApiResponse) => {
-            return response;
-        });
+        this.client.interceptors.response.use(
+            (response) => {
+                // Handle API-specific errors
+                if (response.data.ResponseCode !== 100) {
+                    throw new ApiError(
+                        JSON.stringify(response.data.ResponseMessage),
+                        response.data.ResponseCode,
+                        response.data
+                    );
+                }
+                return response.data;
+            },
+            (error: AxiosError<ApiData>) => {
+                // Handle network and HTTP errors
+                if (error.response) {
+                    // HTTP error response
+                    throw new ApiError(
+                        JSON.stringify(
+                            error.response.data?.ResponseMessage ||
+                                error.message
+                        ),
+                        error.response.status,
+                        error.response.data
+                    );
+                } else if (error.request) {
+                    // Network error
+                    throw new ApiError(
+                        'Network Error',
+                        undefined,
+                        error.request
+                    );
+                } else {
+                    // Other errors
+                    throw new ApiError(error.message);
+                }
+            }
+        );
     }
 }
