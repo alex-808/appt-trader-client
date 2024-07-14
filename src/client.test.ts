@@ -27,21 +27,26 @@ describe('API Client', () => {
 
     it('should have correct status on successful requests', async () => {
         mock.onGet(
-            '/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
+            'v1/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
         ).reply(200, {
-            data: {
-                ResponseCode: 100,
-            },
+            ResponseCode: 100,
+            ResponseMessage: 'Success',
+            RequestPath: 'v1/marketdata/get_highest_converting_locations',
+            RequestStatus: 'Succeeded',
         });
 
-        expect(
-            (await apiClient.marketData.getHighestConvertingLocations()).data
-                .ResponseCode
-        ).toBe(100);
+        await expect(
+            apiClient.marketData.getHighestConvertingLocations()
+        ).resolves.toStrictEqual({
+            ResponseCode: 100,
+            ResponseMessage: 'Success',
+            RequestPath: 'v1/marketdata/get_highest_converting_locations',
+            RequestStatus: 'Succeeded',
+        });
     });
     it('should throw error on failed requests', async () => {
         mock.onGet(
-            '/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
+            'v1/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
         ).reply(500);
 
         await expect(
