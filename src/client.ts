@@ -55,7 +55,7 @@ class MarketDataApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'marketdata/';
+        this.baseUrl = '/v1/marketdata/';
     }
 
     async getHighestConvertingLocations(params?: {
@@ -123,7 +123,7 @@ class AccountApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'account/';
+        this.baseUrl = '/v1/account/';
     }
 
     async getList(params?: {
@@ -147,7 +147,7 @@ class LocationApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'location/';
+        this.baseUrl = '/v1/location/';
     }
 
     async getCategory(params: { locationAlias: string; explain?: boolean }) {
@@ -297,7 +297,7 @@ class ListingApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'listing/';
+        this.baseUrl = '/v1/listing/';
     }
 
     async getCompetingListings(params: {
@@ -405,7 +405,7 @@ class PortfolioApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'portfolio/';
+        this.baseUrl = '/v1/portfolio/';
     }
 
     async getValidLocationIdentifiers(params?: {
@@ -445,7 +445,7 @@ class BidApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'bid/';
+        this.baseUrl = '/v1/bid/';
     }
 
     async getList(params?: { pageSize?: number; pageNumber?: number }) {
@@ -462,7 +462,7 @@ class MedalApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'medal/';
+        this.baseUrl = '/v1/medal/';
     }
 
     async getAchievementBonusTypes(params?: {
@@ -688,7 +688,7 @@ class UserApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'user/';
+        this.baseUrl = '/v1/user/';
     }
 
     async get(params?: {
@@ -741,7 +741,7 @@ class NotificationApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'notification/';
+        this.baseUrl = '/v1/notification/';
     }
 
     async setReadstate(params: {
@@ -763,7 +763,7 @@ class ToolsApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'tools/';
+        this.baseUrl = '/v1/tools/';
     }
 
     async getConvertCurrency(params: {
@@ -793,7 +793,7 @@ class CommunityApi {
 
     constructor(private client: AxiosInstance) {
         this.client = client;
-        this.baseUrl = 'community/';
+        this.baseUrl = '/v1/community/';
     }
 
     async setCreatePollAnswerForQuestion(params: {
