@@ -13,6 +13,9 @@
     "main": "dist/client.js",
     "module": "dist/client.mjs",
     "types": "dist/client.d.ts",
+    "files": [
+        "dist"
+    ],
     "repository": "https://github.com/alex-808/appt-trader-client.git",
     "author": "Alex Davis <63484411+rawbeef-808@users.noreply.github.com>",
     "license": "MIT",

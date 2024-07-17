@@ -1,6 +1,6 @@
 # appt-trader-client
 
-This is a client for interacting with the Appointment Trader API. Methods are available for each endpoint with typing for parameters.
+This is an unofficial client for interacting with the Appointment Trader API. Methods are available for each endpoint with typing for parameters.
 
 You will need API keys for either the sandbox or production API which can be passed as a parameter during client initialization along with the base url (ex: https://rc.appointmenttrader.com for the sandbox API as of writing this):
 
