@@ -4,7 +4,7 @@
         "dotenv": "^16.4.5"
     },
     "name": "appt-trader-client",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "scripts": {
         "test": "jest",
         "build": "tsup src/client.ts --format cjs,esm --dts",
