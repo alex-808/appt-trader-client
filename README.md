@@ -11,6 +11,8 @@ const sandboxClient = new ApiClient({
 });
 ```
 
+Note: If no baseUrl is passed the sandbox url will be used by default.
+
 From here you can access each basepath (`/user`, `/medals`, etc) by accessing the respective property on the client and then the method for the respective endpoint.
 
 For example to access the `/marketdata` `get_highest_converting_locations` endpoint can be accessed with:
@@ -26,6 +28,8 @@ await sandboxClient.location.getCategory({
     locationAlias: 'sexy-fish-miami',
 });
 ```
+
+Currently all endpoints are configured to be accessed via a GET request.
 
 Note: All endpoints have an optional 'explain' parameter. Set to `true` it will return documentation for that endpoint.
 

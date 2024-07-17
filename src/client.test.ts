@@ -51,11 +51,52 @@ describe('API Client', () => {
 
         await expect(
             apiClient.marketData.getHighestConvertingLocations()
-        ).rejects.toThrow();
+        ).rejects.toThrow('Request failed with status code 500');
     });
 
-    // TODO
-    // test incorrect parameters for method
-    // test url creation
-    // it('should create correct URL for getHighestConvertingLocations', async () => {
+    it('should create correct URL for given flat params', async () => {
+        const url = apiClient.account.appendQueryParams('www.test.com', {
+            key: 'value',
+        });
+
+        expect(url).toBe('www.test.com?key=value');
+    });
+
+    it('should create correctly encoded URL for given deep params', async () => {
+        const url = apiClient.account.appendQueryParams('www.test.com', {
+            key: {
+                nested: 'value',
+            },
+        });
+
+        expect(url).toBe('www.test.com?key=%7B%22nested%22%3A%22value%22%7D');
+    });
+
+    it('should handle undefined params in appendQueryParams', () => {
+        const url = apiClient.account.appendQueryParams(
+            'www.test.com',
+            undefined
+        );
+
+        expect(url).toBe('www.test.com');
+    });
+
+    it('should handle network error', async () => {
+        mock.onGet(
+            'v1/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
+        ).networkError();
+
+        await expect(
+            apiClient.marketData.getHighestConvertingLocations()
+        ).rejects.toThrow('Network Error');
+    });
+    it('should handle request timeout', async () => {
+        mock.onGet(
+            'v1/marketdata/get_highest_converting_locations?key=YOUR_API_KEY'
+        ).timeout();
+
+        await expect(
+            apiClient.marketData.getHighestConvertingLocations()
+        ).rejects.toThrow('timeout of 0ms exceeded');
+    });
 });

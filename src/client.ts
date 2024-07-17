@@ -1,11 +1,10 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosError } from 'axios';
 import dotenv from 'dotenv';
-import { request } from 'http';
 
 dotenv.config();
 
 interface ApiClientOptions {
-    baseUrl: string;
+    baseUrl?: string;
     apiKey: string;
 }
 
@@ -744,7 +743,8 @@ export class ApiClient {
 
     constructor(options: ApiClientOptions) {
         this.client = axios.create({
-            baseURL: options.baseUrl,
+            // defaults to sandbox URL if none provided
+            baseURL: options.baseUrl || 'https://rc.appointmenttrader.com',
         });
         this.apiKey = options.apiKey;
         this.marketData = new MarketDataApi(this.client);
