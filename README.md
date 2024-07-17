@@ -1,4 +1,4 @@
-# appt-tdr-client
+# appt-trader-client
 
 This is a client for interacting with the Appointment Trader API. Methods are available for each endpoint with typing for parameters.
 
@@ -26,5 +26,7 @@ await sandboxClient.location.getCategory({
     locationAlias: 'sexy-fish-miami',
 });
 ```
+
+Note: All endpoints have an optional 'explain' parameter. Set to `true` it will return documentation for that endpoint.
 
 Any feedback or bug reports are appreciated. I will do my best to maintain this package and keep it up to date as the API changes.

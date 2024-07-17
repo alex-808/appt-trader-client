@@ -53,4 +53,9 @@ describe('API Client', () => {
             apiClient.marketData.getHighestConvertingLocations()
         ).rejects.toThrow();
     });
+
+    // TODO
+    // test incorrect parameters for method
+    // test url creation
+    // it('should create correct URL for getHighestConvertingLocations', async () => {
 });
